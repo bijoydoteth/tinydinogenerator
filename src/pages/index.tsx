@@ -22,9 +22,9 @@ export default function Home() {
         </div>
       </main>
       <footer className='text-center'>
-        <p> Made with ❤️ by <a href='https://twitter.com/bijoydoteth' target="_blank" className='text-blue-500 hover:underline'>bijoy</a> for the community. <a href='https://github.com/tinydinosnft/tinydinosassets' target="_blank" className='text-blue-500 hover:underline'> Tiny Dino Assets</a></p>
+        <p> Made with ❤️ for the community. <a href='https://github.com/tinydinosnft/tinydinosassets' target="_blank" className='text-blue-500 hover:underline'> Tiny Dino Assets</a></p>
         <p>This website is open-sourced. 
-          <a href='https://github.com/ho4848/poolmynft' target="_blank" className='text-blue-500 hover:underline'>Source Code</a>
+          <a href='https://github.com/ho4848/poolmynft' target="_blank" className='text-blue-500 hover:underline'> Source Code</a>
           
         </p>
       </footer>

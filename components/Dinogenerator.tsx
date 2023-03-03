@@ -1,27 +1,49 @@
-import { createCanvas, loadImage } from 'canvas';
+import mergeImages from 'merge-images';
 import Image from 'next/image';
-import { type } from 'os';
 import { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import traitList from '../public/traits/traitList.json';
 
 
 export default function Dinogenerator() {
-    const [selectedTraits, setSelectedTraits] = useState<any>([]);
+    interface selectedTraits {
+        traitName: string;
+        traitValue: string;
+        layer: number;
+        userLocked: boolean;
+    } 
+    
+    const emptyTraits= traitList.map((e: { name: any;layer:any })=>{
+        return {
+            traitName:e.name,
+            traitValue:'none',
+            layer:e.layer,
+            userLocked:false
+        }
+    })
+    const [selectedTraits, setSelectedTraits] = useState(emptyTraits);
     const [combinedImageURL, setCombinedImageURL] = useState('');
 
     const buttonStyle = 'my-2 bg-gray-600 hover:bg-black text-white font-bold py-2 px-4 rounded'
 
     useEffect(() => {
-        getImageFromSelectedTraits(selectedTraits)
+        getImageFromSelectedTraits()
+        // console.log(selectedTraits);
+        
     }, [selectedTraits]);
 
     const handleSelectChangeTraits = (event: { target: any; }) => {
+        
         setSelectedTraits((prevState: any) => {
-            return {
-                ...prevState,
-                [event.target.id]: event.target.value
-            }
+            
+            return prevState.map((e: { traitName: any; traitValue: any; })=>{
+                if(e.traitName===event.target.id) {
+                    return {...e,traitName:event.target.id,traitValue:event.target.value}
+                }else{
+                    return e
+                }
+            })
+                   
         })
         
     }
@@ -34,8 +56,8 @@ export default function Dinogenerator() {
         let randomTrait:{name:string,value:string}[] = []
         if(mode==='all'){
             for(const trait of traitList){
-                if(trait.name==='background'||trait.name==='body'||trait.name==='chest'||trait.name==='eyes'){
-                    const randomProp = trait.value[Math.floor(Math.random() * trait.value.length)]; 
+                if(trait.basic===true){
+                    const randomProp = trait.value[Math.floor(Math.random() * trait.value.length)];                  
                     randomTrait.push({name:trait.name,value:randomProp})
                 }else{
                     const includeTrait = Math.round(Math.random())
@@ -46,7 +68,8 @@ export default function Dinogenerator() {
                 }
             }
         }else if(mode==='only-active'){
-            const activeTraitsList = Object.keys(selectedTraits)
+            const activeTraitsList = selectedTraits.filter(e=>e.traitValue!=='none').map((e)=>e.traitName)
+            
             for (const trait of traitList){
                 if(activeTraitsList.includes(trait.name)){
                     const randomProp = trait.value[Math.floor(Math.random() * trait.value.length)]; 
@@ -57,29 +80,45 @@ export default function Dinogenerator() {
         }else{
             return
         }
-        
-        const randomTraitObject = randomTrait.reduce((acc, curr) => {
-            return {...acc,[curr.name]:curr.value};
-          }, {});
-        
-        setSelectedTraits(randomTraitObject)
+
+        const newTraits = selectedTraits.map((e)=>{
+            if(randomTrait.map((e)=>e.name).includes(e.traitName)){
+                return {...e,traitValue:randomTrait.filter((elm)=>elm.name===e.traitName)[0].value}
+            }else{
+                return {...e,traitValue:'none'}
+            }
+        })
+  
+        setSelectedTraits(newTraits)
     
     }
 
     const resetTraits = () => {
-        setSelectedTraits([])
+        setSelectedTraits(emptyTraits)
     }
 
-    const traitSelectBox = ()=>{
-        
+    const TraitSelectBox = ()=>{
+
         return (
             <div className='bg-gray-300 rounded-lg shadow-md '>
-                <div className='py-2 px-10 font-bold text-left'>Select dino traits</div>
+
+                
+                <div className='py-2 pl-10 pr-2 flex justify-between items-center font-bold text-left'>
+                    <h2>Select dino traits</h2>
+                    <div>
+                        <button onClick={resetTraits} className={`${buttonStyle} mx-1`}>Reset</button>
+                        <button onClick={()=>setRandomTraits('all')} className={`${buttonStyle} mx-1`}> Random </button>
+                        <button onClick={()=>setRandomTraits('only-active')} className={`${buttonStyle} mx-1`}> Random Active Traits </button>
+                    </div>
+                    
+                </div>
                 {traitList.map((record)=>{
                     return (
-                        <div key={uuidv4()} className={`p-2 flex  ${selectedTraits[record.name]&&selectedTraits[record.name]!=='none'?'bg-gray-400':''}`}>
-                            <div className='w-32 text-right px-2'>{record.name}: </div>
-                            <select name={record.name} id={record.name} value={selectedTraits[record.name]} onChange={handleSelectChangeTraits} className='w-64'>
+                        <div key={uuidv4()} 
+                        className={`p-2 flex  ${selectedTraits.filter((e)=>e.traitName===record.name)[0].traitValue!=='none'?'bg-gray-400':''}`}>
+                            <div 
+                            className='w-32 text-right px-2'>{record.name}: </div>
+                            <select name={record.name} id={record.name} value={selectedTraits.filter((e)=>e.traitName===record.name)[0].traitValue} onChange={handleSelectChangeTraits} className='w-64'>
                                 <option value="none">none</option>
                                 {record.value.map((traitValue: string)=>{
                                     return (
@@ -99,63 +138,21 @@ export default function Dinogenerator() {
         return `/traits/${resolution}x${resolution}/${traitName}/${traitValue}.png`
     }
 
-    const getImageFromSelectedTraits = async(selectedTraits:any) => {
+    const getImageFromSelectedTraits = async() => {
         const width = 1600;
         const height = width;
-        const canvas = createCanvas(width, height);
-        const ctx = canvas.getContext('2d');
+
+        const activeTraitsList = selectedTraits.filter(e=>e.traitValue!=='none').sort((a, b) => a.layer - b.layer).map(e=>getTraitImageLocation(e.traitName,e.traitValue,1600));
         
-        const traitNameList = Object.keys(selectedTraits)
-        if(traitNameList.length===0){
-            const image = await loadImage(`/traits/1600x1600/logo.png`);
-            ctx.drawImage(image, 0, 0, width, height);
-            const dataUrl = canvas.toDataURL('image/jpeg');
+        if(activeTraitsList.length===0){
+            const dataUrl = await mergeImages(['/traits/1600x1600/logo.png'])
             setCombinedImageURL(dataUrl)
             return
         }
 
-        const traits = traitNameList.map((traitName)=>{
-            let layer
-            switch(traitName){
-                case 'background':
-                    layer=1
-                    break;
-                case 'body':
-                    layer=2
-                    break
-                case 'chest':
-                    layer=3
-                    break
-                case 'eyes':
-                    layer=4
-                    break
-                case 'face':
-                    layer=5
-                    break
-                case 'feet':
-                    layer=6
-                    break
-                case 'hands':
-                    layer=7
-                    break
-                case 'spikes':
-                    layer=8
-                    break
-                default:
-                    layer=100
-                    break
-            }
-            return {name:traitName,value:selectedTraits[traitName],layer}
-        }).sort((a, b) => a.layer - b.layer);
+        const combineImages = activeTraitsList
+        const dataUrl = await mergeImages(combineImages)
 
-        for(const trait of traits){
-            if(trait.value!=='none'){
-                const image = await loadImage(getTraitImageLocation(trait.name,trait.value,1600));
-                ctx.drawImage(image, 0, 0, width, height);
-            }
-        }
-
-        const dataUrl = canvas.toDataURL('image/jpeg');
         // console.log(dataUrl);
         setCombinedImageURL(dataUrl)
         return
@@ -165,10 +162,7 @@ export default function Dinogenerator() {
     return (
         <div>
             <div className="">
-                <button onClick={resetTraits} className={buttonStyle}>Reset</button>
-                <button onClick={()=>setRandomTraits('all')} className={`${buttonStyle} mx-2`}> Random </button>
-                <button onClick={()=>setRandomTraits('only-active')} className={`${buttonStyle} mx-2`}> Random Active Traits </button>
-                <div>{traitSelectBox()}</div>
+                <TraitSelectBox />
                 <div className='flex justify-left my-10'>
                     <div className=''>
                         {combinedImageURL!==''?
@@ -185,10 +179,10 @@ export default function Dinogenerator() {
                     <div className='mx-10 flex flex-col justify-between'>
                         <div className=''>
                             <p className='font-bold my-2'>Selected traits</p>
-                            {Object.keys(selectedTraits).map((trait: any)=>{
-                                if(selectedTraits[trait]==='none') return
+                            {selectedTraits.map((trait)=>{
+                                if(trait.traitValue==='none') return
                                 return (
-                                    <div key={uuidv4()}>{trait}: {selectedTraits[trait]}</div>
+                                    <div key={uuidv4()}>{trait.traitName}: {trait.traitValue}</div>
                                 )
                             })}
                         </div>

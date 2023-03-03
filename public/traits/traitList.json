@@ -24,7 +24,9 @@
       "snow-landscape",
       "yellow",
       "yellow-linear-gradient"
-    ]
+    ],
+    "layer":1,
+    "basic": true
   },
   {
     "name": "body",
@@ -48,7 +50,9 @@
       "teal",
       "yellow",
       "yellow-linear-gradient"
-    ]
+    ],
+    "layer":2,
+    "basic": true
   },
   {
     "name": "chest",
@@ -64,7 +68,9 @@
       "pink",
       "purple",
       "yellow"
-    ]
+    ],
+    "layer":3,
+    "basic": true
   },
   {
     "name": "eyes",
@@ -82,7 +88,9 @@
       "red",
       "white",
       "yellow"
-    ]
+    ],
+    "layer":4,
+    "basic": true
   },
   {
     "name": "face",
@@ -94,13 +102,20 @@
       "noun-glasses",
       "skull",
       "vizor"
-    ]
+    ],
+    "layer":5,
+    "basic": false
   },
   {
     "name": "feet",
-    "value": ["hoverboard", "normal", "rocket-boots", "skateboard"]
+    "value": ["hoverboard", "normal", "rocket-boots", "skateboard"],
+    "layer":6,
+    "basic": false
   },
-  { "name": "hands", "value": ["cast-left", "cast-right", "kite", "normal"] },
+  { "name": "hands", 
+    "value": ["cast-left", "cast-right", "kite", "normal"],
+    "layer":7,
+    "basic": false },
   {
     "name": "spikes",
     "value": [
@@ -118,6 +133,8 @@
       "teal",
       "white",
       "yellow"
-    ]
+    ],
+    "layer":8,
+    "basic": false
   }
 ]
