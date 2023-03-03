@@ -1,0 +1,123 @@
+[
+  {
+    "name": "background",
+    "value": [
+      "blue",
+      "blue-conical-gradient",
+      "blue-linear-gradient",
+      "day-landscape",
+      "gray",
+      "green",
+      "green-conical-gradient",
+      "light-brown",
+      "light-gray",
+      "night-landscape",
+      "orange",
+      "orange-conical-gradient",
+      "pink",
+      "pink-linear-gradient",
+      "purple",
+      "purple-conical-gradient",
+      "purple-linear-gradient",
+      "red-conical-gradient",
+      "red-linear-gradient",
+      "snow-landscape",
+      "yellow",
+      "yellow-linear-gradient"
+    ]
+  },
+  {
+    "name": "body",
+    "value": [
+      "aqua",
+      "blue",
+      "blue-linear-gradient",
+      "gray",
+      "grayspace-linear-gradient",
+      "green",
+      "green-linear-gradient",
+      "light-green",
+      "lime-green",
+      "orange-linear-gradient",
+      "pink",
+      "pink-linear-gradient",
+      "purple",
+      "purple-linear-gradient",
+      "rainbow",
+      "red",
+      "teal",
+      "yellow",
+      "yellow-linear-gradient"
+    ]
+  },
+  {
+    "name": "chest",
+    "value": [
+      "aqua",
+      "blue",
+      "gray",
+      "green",
+      "light-blue",
+      "light-gray",
+      "orange",
+      "orangered",
+      "pink",
+      "purple",
+      "yellow"
+    ]
+  },
+  {
+    "name": "eyes",
+    "value": [
+      "blue",
+      "blue-yellow",
+      "dark-gray",
+      "dark-red",
+      "green",
+      "green-red",
+      "lazer",
+      "light-gray",
+      "orange",
+      "purple",
+      "red",
+      "white",
+      "yellow"
+    ]
+  },
+  {
+    "name": "face",
+    "value": [
+      "bandages",
+      "mask",
+      "ninja",
+      "normal",
+      "noun-glasses",
+      "skull",
+      "vizor"
+    ]
+  },
+  {
+    "name": "feet",
+    "value": ["hoverboard", "normal", "rocket-boots", "skateboard"]
+  },
+  { "name": "hands", "value": ["cast-left", "cast-right", "kite", "normal"] },
+  {
+    "name": "spikes",
+    "value": [
+      "blue",
+      "burnt-orange",
+      "dark-gray",
+      "green",
+      "light-gray",
+      "multicolor",
+      "none",
+      "orange",
+      "pink",
+      "purple",
+      "red",
+      "teal",
+      "white",
+      "yellow"
+    ]
+  }
+]
