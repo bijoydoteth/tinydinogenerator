@@ -15,17 +15,15 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className='p-4'>
+      <main className=''>
         <div className=''>
-          Hello Dino
           <Dinogenerator />
         </div>
       </main>
       <footer className='text-center'>
-        <p> Made with ❤️ for the community. <a href='https://github.com/tinydinosnft/tinydinosassets' target="_blank" className='text-blue-500 hover:underline'> Tiny Dino Assets</a></p>
+        <p> Made with ❤️ for Tiny Dino the community. <a href='https://github.com/tinydinosnft/tinydinosassets' target="_blank" className='text-blue-500 hover:underline'> Tiny Dino Assets</a></p>
         <p>This website is open-sourced. 
-          <a href='https://github.com/ho4848/poolmynft' target="_blank" className='text-blue-500 hover:underline'> Source Code</a>
-          
+          <a href='https://github.com/ho4848/tinydinogenerator' target="_blank" className='text-blue-500 hover:underline'> Source Code</a> 
         </p>
       </footer>
     </>
