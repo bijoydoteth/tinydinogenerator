@@ -139,6 +139,12 @@ const TraitSelectBox:React.FunctionComponent<TraitSelectBoxProps> = ({selectedTr
         setSelectedTraits(traits)
 
     }
+
+    const handleDinoIdBoxEnter = (e: any,inputIdRef: any,setSelectedTraits: any) => {
+        if (e.key === 'Enter') {
+            handleDinoIdBox(inputIdRef,setSelectedTraits)
+        }
+    }
     
     const InputDinoIdBox = ({handleDinoIdBox}:any) => {
         const inputIdRef = useRef(null)
@@ -151,7 +157,9 @@ const TraitSelectBox:React.FunctionComponent<TraitSelectBoxProps> = ({selectedTr
                 type="text"
                 className='w-24 px-2 h-full ml-2' 
                 ref={inputIdRef} 
-                placeholder={`Search ID`} />
+                placeholder={`Search ID`} 
+                onKeyDown={(e)=>handleDinoIdBoxEnter(e,inputIdRef,setSelectedTraits)}
+                />
                 <button onClick={()=>handleDinoIdBox(inputIdRef,setSelectedTraits)} className={`h-full px-2 bg-gray-600 hover:bg-black text-white`}> → </button>
           </div>
         )
