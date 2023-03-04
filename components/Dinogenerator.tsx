@@ -1,4 +1,3 @@
-import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { emptyTraits, getImageFromSelectedTraits } from './helpers';
 import TraitDisplayBox from './TraitDisplayBox';
