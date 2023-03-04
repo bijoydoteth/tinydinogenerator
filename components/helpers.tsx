@@ -22,7 +22,7 @@ export const getTraitImageLocation = (traitName:string,traitValue:string,resolut
 }
 
 export const getImagePathsFromSelectedTraits = (selectedTraits:selectedTraits) => {
-    const imagePaths = selectedTraits.filter(e=>e.traitValue!=='none').sort((a, b) => a.layer - b.layer).map(e=>getTraitImageLocation(e.traitName,e.traitValue,1600))
+    const imagePaths:any[] = selectedTraits.filter(e=>e.traitValue!=='none').sort((a, b) => a.layer - b.layer).map(e=>getTraitImageLocation(e.traitName,e.traitValue,1600))
     return imagePaths.length===0? [emptyImgPath]:imagePaths
 }
 

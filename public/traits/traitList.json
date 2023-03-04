@@ -112,11 +112,13 @@
     "layer":6,
     "basic": false
   },
-  { "name": "hands", 
+  {   
+    "name": "hands", 
     "value": ["cast-left", "cast-right", "kite", "normal"],
     "layer":7,
     "basic": false },
-  { "name": "head", 
+  { 
+  "name": "head", 
   "value": [
     "bandana",
    "cap-backwards",
@@ -129,7 +131,7 @@
    "silly-yellow",
    "two-tone-cap-backwards"
   ],
-  "layer":8,
+  "layer":9,
   "basic": false },
   {
     "name": "spikes",
@@ -148,7 +150,7 @@
       "white",
       "yellow"
     ],
-    "layer":9,
+    "layer":8,
     "basic": false
   }
 ]
