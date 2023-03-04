@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import { emptyTraits, getImageFromSelectedTraitsCanvas } from './helpers';
+import { emptyTraits, getImageFromSelectedTraits } from './helpers';
 import TraitDisplayBox from './TraitDisplayBox';
 import TraitSelectBox from './TraitSelectBox';
 
@@ -11,7 +11,7 @@ export default function Dinogenerator() {
     const [combinedImageURL, setCombinedImageURL] = useState('');
 
     useEffect(() => {
-        getImageFromSelectedTraitsCanvas(selectedTraits).then((url)=>{
+        getImageFromSelectedTraits(selectedTraits).then((url)=>{
             setCombinedImageURL(url)
         })
         // console.log(selectedTraits);   

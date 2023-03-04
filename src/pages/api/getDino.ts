@@ -18,43 +18,43 @@ export default async function handler(
     res: NextApiResponse<Data>
   ) {
 
-    const userReqConvertToSelectedTraits = (req:NextApiRequest) => {
-        let status = {error: false,msg:''}
+    // const userReqConvertToSelectedTraits = (req:NextApiRequest) => {
+    //     let status = {error: false,msg:''}
 
-        const selectedTraits = emptyTraits.map((trait) => {
+    //     const selectedTraits = emptyTraits.map((trait) => {
             
-            if (req.query[trait.traitName] !== undefined) {
-                const userInputTraitValue = req.query[trait.traitName] as string
+    //         if (req.query[trait.traitName] !== undefined) {
+    //             const userInputTraitValue = req.query[trait.traitName] as string
                 
-                // check if the traitValue is in the trait list
-                const correspondingTraitValue = traitList.filter(e=>e.name===trait.traitName)[0].value
-                if (correspondingTraitValue.includes(userInputTraitValue)) {
-                    trait.traitValue = userInputTraitValue
-                }else{
-                    console.log(`Trait ${userInputTraitValue} (in ${trait.traitName}) is not in the trait list`)
-                    status.error = true
-                    status.msg = `Trait ${userInputTraitValue} (in ${trait.traitName}) is not in the trait list`
-                }
-            }
+    //             // check if the traitValue is in the trait list
+    //             const correspondingTraitValue = traitList.filter(e=>e.name===trait.traitName)[0].value
+    //             if (correspondingTraitValue.includes(userInputTraitValue)) {
+    //                 trait.traitValue = userInputTraitValue
+    //             }else{
+    //                 console.log(`Trait ${userInputTraitValue} (in ${trait.traitName}) is not in the trait list`)
+    //                 status.error = true
+    //                 status.msg = `Trait ${userInputTraitValue} (in ${trait.traitName}) is not in the trait list`
+    //             }
+    //         }
 
-            return trait
-        })
+    //         return trait
+    //     })
 
-        if(status.error) return {selectedTraits:emptyTraits,status}
+    //     if(status.error) return {selectedTraits:emptyTraits,status}
 
-        return {selectedTraits,status}
-    }
+    //     return {selectedTraits,status}
+    // }
     
-    const result = userReqConvertToSelectedTraits(req)
-    if(result.status.error) {
-        res.status(400).json({ msg: result.status.msg,error:true })
-        return
-    }else{
-        const selectedTraits = result.selectedTraits
-        const imgLayerPaths = getImagePathsFromSelectedTraits(selectedTraits)
+    // const result = userReqConvertToSelectedTraits(req)
+    // if(result.status.error) {
+    //     res.status(400).json({ msg: result.status.msg,error:true })
+    //     return
+    // }else{
+    //     const selectedTraits = result.selectedTraits
+    //     const imgLayerPaths = getImagePathsFromSelectedTraits(selectedTraits)
         
         
-    }
+    // }
     
     
     

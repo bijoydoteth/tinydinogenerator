@@ -1,5 +1,4 @@
-import { createCanvas, loadImage } from 'canvas';
-import { log } from 'console';
+// import { createCanvas, loadImage } from 'canvas';
 import mergeImages from 'merge-images';
 import existingDinos from '../public/traits/existingDinos.json';
 import traitList from '../public/traits/traitList.json';
@@ -44,23 +43,23 @@ export const getImageFromSelectedTraits = async(selectedTraits:selectedTraits) =
     return dataUrl
 }
 
-export const getImageFromSelectedTraitsCanvas = async(selectedTraits:selectedTraits) => {
-    const width = 1600;
-    const height = width;
-    const canvas = createCanvas(width,height)
-    const ctx = canvas.getContext('2d')
+// export const getImageFromSelectedTraitsCanvas = async(selectedTraits:selectedTraits) => {
+//     const width = 1600;
+//     const height = width;
+//     const canvas = createCanvas(width,height)
+//     const ctx = canvas.getContext('2d')
 
-    const imgLayerPaths = getImagePathsFromSelectedTraits(selectedTraits)
+//     const imgLayerPaths = getImagePathsFromSelectedTraits(selectedTraits)
 
-    for (const imgPath of imgLayerPaths){
-        const img = await loadImage(imgPath)
-        ctx.drawImage(img, 0, 0,width,height)
-    }
+//     for (const imgPath of imgLayerPaths){
+//         const img = await loadImage(imgPath)
+//         ctx.drawImage(img, 0, 0,width,height)
+//     }
 
-    const dataUrl = canvas.toDataURL()
+//     const dataUrl = canvas.toDataURL()
     
-    return dataUrl
-}
+//     return dataUrl
+// }
 
 const getTraitsFromDinoId = (dinoId:string) => {
     function isValidNumber(str:string) {
