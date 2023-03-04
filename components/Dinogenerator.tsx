@@ -14,7 +14,7 @@ export default function Dinogenerator() {
         getImageFromSelectedTraits(selectedTraits).then((url)=>{
             setCombinedImageURL(url)
         })
-        // console.log(selectedTraits);   
+      
     }, [selectedTraits]);
     
     return (
