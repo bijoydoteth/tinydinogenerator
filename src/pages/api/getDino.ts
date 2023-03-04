@@ -1,5 +1,4 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import gm from 'gm';
 import mergeImages from 'merge-images';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { useRef } from 'react';
@@ -53,20 +52,6 @@ export default async function handler(
     }else{
         const selectedTraits = result.selectedTraits
         const imgLayerPaths = getImagePathsFromSelectedTraits(selectedTraits)
-
-        const image = gm(imgLayerPaths[0])
-        image.setFormat('jpg');
-        image.stream((err, stdout, stderr) => {
-            if (err) {
-              console.error(err);
-              res.status(500).send({msg:'Internal server error',error:true});
-            } else {
-              res.setHeader('Content-Type', 'image/png');
-              stdout.pipe(res);
-              
-              
-            }
-          });
         
         
     }

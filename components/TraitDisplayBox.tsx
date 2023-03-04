@@ -19,7 +19,7 @@ const TraitDisplayBox:React.FunctionComponent<TraitDisplayBoxProps> = ({selected
                 height={300} />
                 
             </div>
-            <div className='pr-5 h-[300px] w-[300px] flex flex-col justify-between'>
+            <div className=' h-[300px] w-[300px] flex flex-col justify-between'>
                 <div className='my-auto'>
                     
                     {selectedTraits.map((trait)=>{
