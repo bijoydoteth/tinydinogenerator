@@ -154,7 +154,7 @@ export const getRandomTraits = (selectedTraits:selectedTraits,mode='all') => {
         }
         
     }else{
-        return
+        return emptyTraits
     }
 
     // Push back the locked traits to random trait

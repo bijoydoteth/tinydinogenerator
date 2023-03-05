@@ -8,13 +8,14 @@ import { selectedTraits, TraitDisplayBoxProps } from './dinoInterface';
 
 const TraitDisplayBox:React.FunctionComponent<TraitDisplayBoxProps> = ({selectedTraits,imageURL}) => {
     const buttonStyle = 'bg-gray-600 hover:bg-black text-white font-bold py-2 px-4 rounded'
-    const [dinoDescription,setDinoDescription] = useState('Get descriptions for your dino!')
+    const initialDescription = 'Get descriptions for your dino'
+    const [dinoDescription,setDinoDescription] = useState(initialDescription)
     const [loading,setLoading] = useState(false)
 
 
     // use useEffect to reset dinoDescription when selectedTraits changes
     useEffect(()=>{
-        setDinoDescription('Get descriptions for your dino')
+        setDinoDescription(initialDescription)
     },[selectedTraits])
 
     const handleGetDescription = () => {

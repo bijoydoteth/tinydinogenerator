@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { emptyTraits, getImageFromSelectedTraits } from './helpers';
+import { emptyTraits, getImageFromSelectedTraits, getRandomTraits } from './helpers';
 import TraitDisplayBox from './TraitDisplayBox';
 import TraitSelectBox from './TraitSelectBox';
 
@@ -8,6 +8,14 @@ export default function Dinogenerator() {
 
     const [selectedTraits, setSelectedTraits] = useState(emptyTraits);
     const [combinedImageURL, setCombinedImageURL] = useState('');
+
+    // get random traits when page load
+    useEffect(() => {
+        const randomTraits = getRandomTraits(emptyTraits,'all')
+        setSelectedTraits(randomTraits)
+    }, []);
+
+
 
     useEffect(() => {
         getImageFromSelectedTraits(selectedTraits).then((url)=>{
