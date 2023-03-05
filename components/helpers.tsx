@@ -70,18 +70,29 @@ const getTraitsFromDinoId = (dinoId:string) => {
     const dinoTraits:any = existingDinos.find(e=>e.tokenId===Number(dinoId))||{}
     // const isOneOfOne = '1/1' in Object.keys(dinoTraits)
     
-    const result = emptyTraits.map(trait=>{
-        
-        if(Object.keys(dinoTraits).includes(trait.traitName)){
-            trait.traitValue = dinoTraits[trait.traitName]
+    const result = convertInputTraitsToSelectedTraits(dinoTraits)
+
+    return result  
+}
+
+export const convertInputTraitsToSelectedTraits = (inputTraits:any) => {
+    return emptyTraits.map(trait=>{
+        if(Object.keys(inputTraits).includes(trait.traitName)){
+            trait.traitValue = inputTraits[trait.traitName]
         }else{
             trait.traitValue = 'none'
         }
 
         return trait
     })
+}
 
-    return result  
+export const convertSelectedTraitsToInputTraits = (traits:any) => {
+    let inputTraits:any = {};
+    for (const trait of traits) {    
+        inputTraits[trait.traitName] = trait.traitValue;
+    }
+    return inputTraits;
 }
 
 const getImgPathFromDinoId = (dinoId:string) => {
@@ -103,4 +114,76 @@ export const getTraitsAndPathFromDinoId = (dinoId:string) => {
 export const findDinoIdFromTraits = (selectedTraits:selectedTraits) => {
     
     return
+}
+
+export const getRandomTraits = (selectedTraits:selectedTraits,mode='all') => {
+    // select random traits from traitList
+    // Must have traitName: background, body, chest, eyes
+    // Optional traitName: face, feet, hands, spikes
+
+    let randomTrait:{name:string,value:string}[] = []
+    // get a list of traits that is not userLocked
+    const userUnlockedTraitsName = selectedTraits.filter(e=>e.userLocked===false).map(e=>e.traitName)
+    const userLockedTraits = selectedTraits.filter(e=>e.userLocked===true)
+
+
+    // filter traitList with traits that is not userLocked
+    const userUnlockedTraitList = traitList.filter(e=>userUnlockedTraitsName.includes(e.name))
+
+    if(mode==='all'){
+        for(const trait of userUnlockedTraitList){
+            if(trait.basic===true){
+                const randomProp = trait.value[Math.floor(Math.random() * trait.value.length)];                  
+                randomTrait.push({name:trait.name,value:randomProp})
+            }else{
+                const includeTrait = Math.round(Math.random())
+                if(includeTrait===1){
+                    const randomProp = trait.value[Math.floor(Math.random() * trait.value.length)]; 
+                    randomTrait.push({name:trait.name,value:randomProp})
+                }
+            }
+        }
+    }else if(mode==='only-active'){
+        const activeTraitsList = selectedTraits.filter(e=>e.traitValue!=='none').map((e)=>e.traitName)
+        
+        for (const trait of userUnlockedTraitList){
+            if(activeTraitsList.includes(trait.name)){
+                const randomProp = trait.value[Math.floor(Math.random() * trait.value.length)]; 
+                randomTrait.push({name:trait.name,value:randomProp})
+            }
+        }
+        
+    }else{
+        return
+    }
+
+    // Push back the locked traits to random trait
+    for (const trait of userLockedTraits){
+        randomTrait.push({name:trait.traitName,value:trait.traitValue})
+    }
+
+    const newTraits = selectedTraits.map((e)=>{
+        if(randomTrait.map((e)=>e.name).includes(e.traitName)){
+            return {...e,traitValue:randomTrait.filter((elm)=>elm.name===e.traitName)[0].value}
+        }else{
+            return {...e,traitValue:'none'}
+        }
+    })
+
+    return newTraits
+
+}
+
+export const getRandomTraitSingle = (selectedTraits:selectedTraits,traitName:string) => {
+    if(traitName==='none') return emptyTraits
+    const trait = traitList.filter(e=>e.name===traitName)[0]
+    const randomProp = trait.value[Math.floor(Math.random() * trait.value.length)]; 
+    const newTraits = selectedTraits.map((e)=>{
+        if(e.traitName===traitName){
+            return {...e,traitValue:randomProp}
+        }else{
+            return e
+        }
+    })
+    return newTraits
 }

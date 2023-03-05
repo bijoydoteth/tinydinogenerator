@@ -117,22 +117,6 @@
     "value": ["cast-left", "cast-right", "kite", "normal"],
     "layer":7,
     "basic": false },
-  { 
-  "name": "head", 
-  "value": [
-    "bandana",
-   "cap-backwards",
-   "cap-forwards",
-   "chef",
-   "crown",
-   "headphones",
-   "long-peak-cap-forwards",
-   "mouse-ears",
-   "silly-yellow",
-   "two-tone-cap-backwards"
-  ],
-  "layer":9,
-  "basic": false },
   {
     "name": "spikes",
     "value": [
@@ -152,5 +136,21 @@
     ],
     "layer":8,
     "basic": false
-  }
+  },
+  { 
+  "name": "head", 
+  "value": [
+    "bandana",
+   "cap-backwards",
+   "cap-forwards",
+   "chef",
+   "crown",
+   "headphones",
+   "long-peak-cap-forwards",
+   "mouse-ears",
+   "silly-yellow",
+   "two-tone-cap-backwards"
+  ],
+  "layer":9,
+  "basic": false }
 ]

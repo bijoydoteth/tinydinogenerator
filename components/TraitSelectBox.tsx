@@ -3,7 +3,7 @@ import Select from 'react-select';
 import { v4 as uuidv4 } from 'uuid';
 import traitList from '../public/traits/traitList.json';
 import { selectedTraits, TraitSelectBoxProps } from './dinoInterface';
-import { buttonStyle, getTraitImageLocation, getTraitsAndPathFromDinoId, noneImgPath } from './helpers';
+import { buttonStyle, getRandomTraits, getRandomTraitSingle, getTraitImageLocation, getTraitsAndPathFromDinoId, noneImgPath } from './helpers';
 
 
 const TraitSelectBox:React.FunctionComponent<TraitSelectBoxProps> = ({selectedTraits,setSelectedTraits})=>{
@@ -17,75 +17,68 @@ const TraitSelectBox:React.FunctionComponent<TraitSelectBoxProps> = ({selectedTr
         }
     })
 
-    const setRandomTraits = (selectedTraits:selectedTraits,mode='all') => {
-        // select random traits from traitList
-        // Must have traitName: background, body, chest, eyes
-        // Optional traitName: face, feet, hands, spikes
+    // const setRandomTraits = (selectedTraits:selectedTraits,mode='all') => {
+    //     // select random traits from traitList
+    //     // Must have traitName: background, body, chest, eyes
+    //     // Optional traitName: face, feet, hands, spikes
 
-        let randomTrait:{name:string,value:string}[] = []
-        // get a list of traits that is not userLocked
-        const userUnlockedTraitsName = selectedTraits.filter(e=>e.userLocked===false).map(e=>e.traitName)
-        const userLockedTraits = selectedTraits.filter(e=>e.userLocked===true)
+    //     let randomTrait:{name:string,value:string}[] = []
+    //     // get a list of traits that is not userLocked
+    //     const userUnlockedTraitsName = selectedTraits.filter(e=>e.userLocked===false).map(e=>e.traitName)
+    //     const userLockedTraits = selectedTraits.filter(e=>e.userLocked===true)
 
 
-        // filter traitList with traits that is not userLocked
-        const userUnlockedTraitList = traitList.filter(e=>userUnlockedTraitsName.includes(e.name))
+    //     // filter traitList with traits that is not userLocked
+    //     const userUnlockedTraitList = traitList.filter(e=>userUnlockedTraitsName.includes(e.name))
 
-        if(mode==='all'){
-            for(const trait of userUnlockedTraitList){
-                if(trait.basic===true){
-                    const randomProp = trait.value[Math.floor(Math.random() * trait.value.length)];                  
-                    randomTrait.push({name:trait.name,value:randomProp})
-                }else{
-                    const includeTrait = Math.round(Math.random())
-                    if(includeTrait===1){
-                        const randomProp = trait.value[Math.floor(Math.random() * trait.value.length)]; 
-                        randomTrait.push({name:trait.name,value:randomProp})
-                    }
-                }
-            }
-        }else if(mode==='only-active'){
-            const activeTraitsList = selectedTraits.filter(e=>e.traitValue!=='none').map((e)=>e.traitName)
+    //     if(mode==='all'){
+    //         for(const trait of userUnlockedTraitList){
+    //             if(trait.basic===true){
+    //                 const randomProp = trait.value[Math.floor(Math.random() * trait.value.length)];                  
+    //                 randomTrait.push({name:trait.name,value:randomProp})
+    //             }else{
+    //                 const includeTrait = Math.round(Math.random())
+    //                 if(includeTrait===1){
+    //                     const randomProp = trait.value[Math.floor(Math.random() * trait.value.length)]; 
+    //                     randomTrait.push({name:trait.name,value:randomProp})
+    //                 }
+    //             }
+    //         }
+    //     }else if(mode==='only-active'){
+    //         const activeTraitsList = selectedTraits.filter(e=>e.traitValue!=='none').map((e)=>e.traitName)
             
-            for (const trait of userUnlockedTraitList){
-                if(activeTraitsList.includes(trait.name)){
-                    const randomProp = trait.value[Math.floor(Math.random() * trait.value.length)]; 
-                    randomTrait.push({name:trait.name,value:randomProp})
-                }
-            }
+    //         for (const trait of userUnlockedTraitList){
+    //             if(activeTraitsList.includes(trait.name)){
+    //                 const randomProp = trait.value[Math.floor(Math.random() * trait.value.length)]; 
+    //                 randomTrait.push({name:trait.name,value:randomProp})
+    //             }
+    //         }
             
-        }else{
-            return
-        }
+    //     }else{
+    //         return
+    //     }
 
-        // Push back the locked traits to random trait
-        for (const trait of userLockedTraits){
-            randomTrait.push({name:trait.traitName,value:trait.traitValue})
-        }
+    //     // Push back the locked traits to random trait
+    //     for (const trait of userLockedTraits){
+    //         randomTrait.push({name:trait.traitName,value:trait.traitValue})
+    //     }
 
-        const newTraits = selectedTraits.map((e)=>{
-            if(randomTrait.map((e)=>e.name).includes(e.traitName)){
-                return {...e,traitValue:randomTrait.filter((elm)=>elm.name===e.traitName)[0].value}
-            }else{
-                return {...e,traitValue:'none'}
-            }
-        })
+    //     const newTraits = selectedTraits.map((e)=>{
+    //         if(randomTrait.map((e)=>e.name).includes(e.traitName)){
+    //             return {...e,traitValue:randomTrait.filter((elm)=>elm.name===e.traitName)[0].value}
+    //         }else{
+    //             return {...e,traitValue:'none'}
+    //         }
+    //     })
   
-        setSelectedTraits(newTraits)
+    //     setSelectedTraits(newTraits)
     
-    }
+    // }
 
-    const setRandomTraitSingle = (traitName:string) => {
-        if(traitName==='none') return
-        const trait = traitList.filter(e=>e.name===traitName)[0]
-        const randomProp = trait.value[Math.floor(Math.random() * trait.value.length)]; 
-        const newTraits = selectedTraits.map((e)=>{
-            if(e.traitName===traitName){
-                return {...e,traitValue:randomProp}
-            }else{
-                return e
-            }
-        })
+    
+
+    const handleSetRandomTraitSingle = (selectedTraits:selectedTraits,traitName:string) => {
+        const newTraits = getRandomTraitSingle(selectedTraits,traitName)
         setSelectedTraits(newTraits)
     }
 
@@ -119,6 +112,11 @@ const TraitSelectBox:React.FunctionComponent<TraitSelectBoxProps> = ({selectedTr
         })
    
     };
+
+    const handleSetRandomTraits = (selectedTraits:selectedTraits,setSelectedTraits:any,mode='all') => {
+        const randomTraits = getRandomTraits(selectedTraits,mode)
+        setSelectedTraits(randomTraits)
+    }
 
     // select option is options from traitList with value and label
     const traitOptions = traitList.map(record=>{
@@ -171,8 +169,8 @@ const TraitSelectBox:React.FunctionComponent<TraitSelectBoxProps> = ({selectedTr
                 <InputDinoIdBox handleDinoIdBox={handleDinoIdBox} />
                 <div>
                     <button onClick={resetTraits} className={`${buttonStyle} mx-1`}>Reset</button>
-                    <button onClick={()=>setRandomTraits(selectedTraits,'all')} className={`${buttonStyle} mx-1`}> Random </button>
-                    <button onClick={()=>setRandomTraits(selectedTraits,'only-active')} className={`${buttonStyle} mx-1`}> Random Active Traits </button>
+                    <button onClick={()=>handleSetRandomTraits(selectedTraits,setSelectedTraits,'all')} className={`${buttonStyle} mx-1`}> Random </button>
+                    <button onClick={()=>handleSetRandomTraits(selectedTraits,setSelectedTraits,'only-active')} className={`${buttonStyle} mx-1`}> Random Active Traits </button>
                 </div>
                 
             </div>
@@ -209,7 +207,7 @@ const TraitSelectBox:React.FunctionComponent<TraitSelectBoxProps> = ({selectedTr
                                 />
                                 
                             </div>
-                            <button className='mx-2' onClick={()=>setRandomTraitSingle(currentTraitLocked?'none':record.name)}>🎲</button>
+                            <button className='mx-2' onClick={()=>handleSetRandomTraitSingle(selectedTraits,currentTraitLocked?'none':record.name)}>🎲</button>
                             <button className='mx-4 w-[50px] text-left' onClick={()=>toggleUserLocked(record.name)}>{currentTraitLocked?'Unlock':'Lock'}</button>
                             
                         </div>

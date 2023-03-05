@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Dino Generator</title>
+        <title>Dino Maker - a Tiny Dino Generator</title>
         <meta name="description" content="Generate your tiny dinos" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
