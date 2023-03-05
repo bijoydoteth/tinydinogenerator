@@ -2,6 +2,6 @@ Create your tiny dino
 
 #rawr
 
-Preview
-!['https://www.dinomaker.xyz/misc/dinoscreenshot.png']('Screenshot')
+## Preview
+![dino maker screenshot](dinoscreenshot.png)
 
