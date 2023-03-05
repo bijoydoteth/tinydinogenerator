@@ -85,7 +85,11 @@ const TraitDisplayBox:React.FunctionComponent<TraitDisplayBoxProps> = ({selected
                         })}
                     </div>
                     <div className='flex justify-start'>
-                        <button className={`${buttonStyle}  ml-10 text-sm`} onClick={handleGetDescription}>Descriptions</button>
+                        {loading?
+                        <button className={`${buttonStyle}  ml-10 text-sm w-[113px]`}> Loading</button>
+                        :
+                        <button className={`${buttonStyle}  ml-10 text-sm w-[113px]`} onClick={handleGetDescription}>Descriptions</button>}
+                        
                         <a href={imageURL} download="tiny_dino.jpg"><button className={`${buttonStyle} ml-2 text-sm`}>Download</button></a>
                     </div>
                     
