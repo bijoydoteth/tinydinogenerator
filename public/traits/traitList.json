@@ -93,29 +93,15 @@
     "basic": true
   },
   {
-    "name": "face",
-    "value": [
-      "bandages",
-      "mask",
-      "ninja",
-      "normal",
-      "noun-glasses",
-      "skull",
-      "vizor"
-    ],
-    "layer":5,
-    "basic": false
-  },
-  {
     "name": "feet",
     "value": ["hoverboard", "normal", "rocket-boots", "skateboard"],
-    "layer":6,
+    "layer":5,
     "basic": false
   },
   {   
     "name": "hands", 
     "value": ["cast-left", "cast-right", "kite", "normal"],
-    "layer":7,
+    "layer":6,
     "basic": false },
   {
     "name": "spikes",
@@ -134,7 +120,7 @@
       "white",
       "yellow"
     ],
-    "layer":8,
+    "layer":7,
     "basic": false
   },
   { 
@@ -151,6 +137,20 @@
    "silly-yellow",
    "two-tone-cap-backwards"
   ],
-  "layer":9,
-  "basic": false }
+  "layer":8,
+  "basic": false },
+  {
+    "name": "face",
+    "value": [
+      "bandages",
+      "mask",
+      "ninja",
+      "normal",
+      "noun-glasses",
+      "skull",
+      "vizor"
+    ],
+    "layer":9,
+    "basic": false
+  }
 ]
