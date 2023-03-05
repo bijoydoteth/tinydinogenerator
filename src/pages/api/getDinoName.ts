@@ -46,7 +46,7 @@ export default async function handler(
         
         try{   
             const response = await axios.post('https://api.openai.com/v1/chat/completions', data, config);
-            const responseChoices = (response.data.choices).map((e: { message: { content: any; }; })=>e.message.content.replace(/[^\w\s,]|_/g, '').replace(/\s+/g, ' '))[0];   
+            const responseChoices = (response.data.choices).map((e: { message: { content: any; }; })=>e.message.content.replace(/[^\w\s,.]|_/g, '').replace(/\s+/g, ' '))[0];   
             return responseChoices
             
 
