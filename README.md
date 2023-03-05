@@ -3,5 +3,5 @@ Create your tiny dino
 #rawr
 
 Preview
-![screenshot](\misc\dino_maker_screenshot.png)
+![screenshot]('https://www.dinomaker.xyz/misc/dinoscreenshot.png')
 
